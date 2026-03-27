@@ -18,6 +18,39 @@ body {
   background: linear-gradient(180deg, var(--logbook-bg-top) 0%, var(--logbook-bg-main) 260px);
 }
 
+.masthead {
+  background: #0d141d;
+  border-bottom: 1px solid var(--logbook-border);
+}
+
+.greedy-nav {
+  background: transparent;
+}
+
+.greedy-nav a,
+.site-title,
+.site-subtitle {
+  color: var(--logbook-ink);
+}
+
+.greedy-nav a:hover,
+.site-title:hover {
+  color: var(--logbook-accent);
+}
+
+.greedy-nav .visible-links a:before {
+  background: var(--logbook-accent);
+}
+
+.greedy-nav .hidden-links {
+  background: #111d2a;
+  border: 1px solid var(--logbook-border);
+}
+
+.greedy-nav .hidden-links a {
+  border-bottom: 1px solid var(--logbook-border);
+}
+
 .page__content {
   font-size: 1.03rem;
   line-height: 1.75;
