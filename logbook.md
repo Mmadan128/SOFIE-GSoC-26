@@ -19,6 +19,7 @@ This page is the primary running log of implementation work, validation evidence
 | Week | Date | Focus | Summary |
 | --- | --- | --- | --- |
 | Week 0 | 2026-03-27 | Setup and tracking baseline | Established public logbook structure and reporting format. |
+| Week 1 | 2026-04-03 | Reduction kernel prototype | Built first draft of Group B reduction flow and defined validation checkpoints. |
 
 ## Week 0 - Setup and Baseline
 
@@ -46,6 +47,36 @@ This page is the primary running log of implementation work, validation evidence
 
 - Start Week 1 implementation notes with operator-level progress and validation metrics.
 - Add post-level entries once implementation coding begins.
+
+## Week 1 - Sample Entry: Reduction Kernel Prototype
+
+### Planned
+
+- Define kernel decomposition for Group B reduction operators.
+- Draft the execution flow using portable alpaka abstractions.
+- Identify correctness checks needed before optimization.
+
+### Completed
+
+- Documented the reduction flow as a staged pipeline: load, partial reduce, final merge.
+- Prepared pseudo-code and mapped thread responsibilities for each stage.
+- Listed edge-case conditions for tensor shapes and reduction axes.
+
+### Evidence
+
+- Updated technical notes and code samples repository references.
+- Captured planned checks for numerical parity with CPU baseline.
+
+### Risks or Blockers
+
+- Potential divergence in behavior across different backend architectures.
+- Final kernel performance depends on memory access pattern tuning.
+
+### Next Actions
+
+- Implement first executable kernel path for one representative operator.
+- Run correctness parity checks against the reference CPU implementation.
+- Record baseline timings before optimization passes.
 
 ## Weekly Entry Template
 
