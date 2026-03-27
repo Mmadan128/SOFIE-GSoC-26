@@ -3,6 +3,8 @@ main:
     url: /
   - title: "Logbook"
     url: /logbook/
+  - title: "GitHub"
+    url: https://github.com/mmadan128
 
 sidebar:
   - title: "Logbook Resources"
