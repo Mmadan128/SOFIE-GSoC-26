@@ -1,7 +1,11 @@
 main:
-  - title: "Work Log"
+  - title: "Home"
     url: /
-  - title: "Code Samples"
-    url: https://github.com/mmadan128/SOFIE-Parallel-Kernels 
-  - title: "Proposal PDF"
-    url: /assets/SOFIE_GSOC_26.pdf
+
+sidebar:
+  - title: "GSoC 2026 Resources"
+    children:
+      - title: "Parallel Code Samples"
+        url: https://github.com/mmadan128/SOFIE-Parallel-Kernels
+      - title: "Proposal PDF"
+        url: /assets/SOFIE_GSOC_26.pdf
