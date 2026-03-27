@@ -2,6 +2,7 @@
 title: "Week 1 - Reduction Kernel Prototype"
 layout: single
 author_profile: false
+summary: "Defined staged reduction flow, drafted kernel structure, and set correctness checks against CPU baseline."
 ---
 
 ## Planned

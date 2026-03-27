@@ -37,4 +37,4 @@ This site is a running work log for SOFIE GSoC 2026.
 - [GitHub Profile](https://github.com/mmadan128)
 - [Technical Code Samples](https://github.com/mmadan128/SOFIE-Parallel-Kernels)
 - [Project Proposal (PDF)]({{ '/SOFIE GSOC 26.pdf' | relative_url }})
-- [Weekly Logbook Entries]({{ '/logbook/' | relative_url }})
+- [Work Log Entries]({{ '/logbook/' | relative_url }})
