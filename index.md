@@ -5,27 +5,16 @@ author_profile: false
 
 ## SOFIE Logbook
 
-Maintained by Mohit Madan.
+Mohit Madan — GSoC 2026
 
 **ML Inference on heterogeneous architectures using SOFIE**
 
-[View proposal]({{ '/SOFIE GSOC 26.pdf' | relative_url }})
+[Proposal]({{ '/SOFIE GSOC 26.pdf' | relative_url }})
 
-### Status
+Community Bonding phase. Working on parallel reduction kernels.
 
-- Phase: Community Bonding and scoping.
-- Goal: Parallel reduction kernels for Group B operators.
+### Links
 
-### How Entries Are Structured
-
-- Planned
-- Completed
-- Evidence
-- Risks & next actions
-
-### Resources
-
-- [GitHub Profile](https://github.com/mmadan128)
-- [Technical Code Samples](https://github.com/mmadan128/SOFIE-Parallel-Kernels)
-- [Project Proposal (PDF)]({{ '/SOFIE GSOC 26.pdf' | relative_url }})
+- [GitHub](https://github.com/mmadan128)
+- [Code Samples](https://github.com/mmadan128/SOFIE-Parallel-Kernels)
 - [Logbook]({{ '/logbook/' | relative_url }})
