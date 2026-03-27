@@ -83,22 +83,20 @@ body {
   background: var(--logbook-panel);
 }
 
-/* Tweak light mode quickly by changing only the variables below. */
-@media (prefers-color-scheme: light) {
-  :root {
-    --logbook-accent: #0f4c81;
-    --logbook-accent-hover: #083458;
-    --logbook-ink: #1f2933;
-    --logbook-subtle: #5f6c7b;
-    --logbook-bg-top: #f8fbfd;
-    --logbook-bg-main: #ffffff;
-    --logbook-panel: #ffffff;
-    --logbook-border: #d9e3ec;
-    --logbook-h2: #0b3558;
-    --logbook-h3: #173f67;
-    --logbook-table-head: #eaf2f8;
-    --logbook-table-row: #fbfdff;
-  }
+/* Optional light mode: add class "theme-light" to <html> to use these values. */
+html.theme-light {
+  --logbook-accent: #0f4c81;
+  --logbook-accent-hover: #083458;
+  --logbook-ink: #1f2933;
+  --logbook-subtle: #5f6c7b;
+  --logbook-bg-top: #f8fbfd;
+  --logbook-bg-main: #ffffff;
+  --logbook-panel: #ffffff;
+  --logbook-border: #d9e3ec;
+  --logbook-h2: #0b3558;
+  --logbook-h3: #173f67;
+  --logbook-table-head: #eaf2f8;
+  --logbook-table-row: #fbfdff;
 }
 
 @media (max-width: 767px) {
