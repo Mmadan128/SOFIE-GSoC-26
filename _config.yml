@@ -1,22 +1,20 @@
-# Site Settings
 title: "SOFIE GSoC '26 Logbook"
 description: "ML Inference on heterogeneous architectures using SOFIE"
 url: "https://mmadan128.github.io"
-baseurl: "/SOFIE-GSoC-26" 
+baseurl: "/SOFIE-GSoC-26"
 repository: "mmadan128/SOFIE-GSoC-26"
 
-# Theme Settings
 remote_theme: "mmistakes/minimal-mistakes@4.24.0"
-minimal_mistakes_skin: "dark" # The dark mode you requested
+minimal_mistakes_skin: "dark"
 
-# Performance & Plugins
+mathjax: true
+
 plugins:
   - jekyll-remote-theme
   - jekyll-include-cache
   - jekyll-feed
-  - jekyll-gist # Useful for the code samples Sanjiban requested
+  - jekyll-gist
 
-# Defaults for Posts
 defaults:
   - scope:
       path: ""
@@ -24,5 +22,13 @@ defaults:
     values:
       layout: single
       author_profile: true
-      share: true
-      comments: false
+      read_time: true
+      share: false
+
+author:
+  name: "Mohit Madan"
+  bio: "GSoC 2026 Contributor for CERN-HSF. B.Tech CST @ MAIT."
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/mmadan128"
