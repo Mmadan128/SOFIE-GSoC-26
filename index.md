@@ -9,7 +9,9 @@ Mohit Madan — GSoC 2026
 
 [Proposal]({{ '/SOFIE GSOC 26.pdf' | relative_url }})
 
-Community Bonding phase. Working on parallel reduction kernels.
+This is the public logbook for my GSoC proposal.
+
+Current stage: proposal and planning.
 
 ### Links
 
