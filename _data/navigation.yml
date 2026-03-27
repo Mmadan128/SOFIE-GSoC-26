@@ -1,7 +1,7 @@
 main:
   - title: "Home"
     url: /
-  - title: "Logbook"
+  - title: "SOFIE GSoC26 Logbook"
     url: /logbook/
   - title: "GitHub"
     url: https://github.com/mmadan128

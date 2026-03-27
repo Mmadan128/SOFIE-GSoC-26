@@ -3,7 +3,7 @@ layout: single
 author_profile: false
 ---
 
-Mohit Madan — GSoC 2026
+Mohit Madan
 
 **ML Inference on heterogeneous architectures using SOFIE**
 
