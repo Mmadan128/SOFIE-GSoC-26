@@ -1,10 +1,11 @@
 ---
 layout: home
 author_profile: true
-title: "Development Dashboard"
 sidebar:
   nav: "sidebar"
 ---
+
+## Development Dashboard
 
 [cite_start]Welcome to the official technical log for my **GSoC 2026** project with **CERN-HSF**[cite: 2, 4]. [cite_start]This site tracks the evolution of **SOFIE** as we port its inference engine to a portable GPU backend using **alpaka**[cite: 3, 22].
 
