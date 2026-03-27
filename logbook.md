@@ -5,7 +5,7 @@ permalink: /logbook/
 author_profile: false
 ---
 
-Project updates are published as separate dated posts.
+Updates are published as dated posts.
 
 ## Entries
 

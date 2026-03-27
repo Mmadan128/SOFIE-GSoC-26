@@ -1,15 +1,15 @@
 main:
   - title: "Home"
     url: /
-  - title: "Work Log"
+  - title: "Logbook"
     url: /logbook/
   - title: "GitHub"
     url: https://github.com/mmadan128
 
 sidebar:
-  - title: "Project Resources"
+  - title: "Resources"
     children:
-      - title: "Work Log Entries"
+      - title: "Logbook"
         url: /logbook/
       - title: "Parallel Code Samples"
         url: https://github.com/mmadan128/SOFIE-Parallel-Kernels

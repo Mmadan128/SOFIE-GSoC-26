@@ -9,33 +9,27 @@ Maintained by Mohit Madan.
 
 This site is a running work log for GSoC 2026.
 
-### Project Snapshot
+### Overview
 
-| Field | Value |
-| --- | --- |
-| Title | ML Inference on heterogeneous architectures using SOFIE |
-| Program | Google Summer of Code 2026 |
-| Organization | CERN-HSF |
-| Project | SOFIE Parallel Kernel Development |
-| Focus Area | Portable GPU backend with alpaka |
-| Contributor | Mohit Madan |
+**ML Inference on heterogeneous architectures using SOFIE** — Google Summer of Code 2026, CERN-HSF.
 
-### Current Status
+[View full proposal]({{ '/SOFIE GSOC 26.pdf' | relative_url }})
 
-- Phase: Community Bonding and technical scoping.
-- Current objective: Resolve critical pipeline issues from the evaluation implementation.
-- Next milestone: Parallel reduction kernels for Group B operators.
+### Status
 
-### How Updates Are Logged
+- Phase: Community Bonding and scoping.
+- Goal: Parallel reduction kernels for Group B operators.
 
-- Planned work.
-- Completed work.
-- Evidence and results.
-- Risks and next actions.
+### Logbook Format
+
+- Planned
+- Completed
+- Evidence
+- Risks & next actions
 
 ### Resources
 
 - [GitHub Profile](https://github.com/mmadan128)
 - [Technical Code Samples](https://github.com/mmadan128/SOFIE-Parallel-Kernels)
 - [Project Proposal (PDF)]({{ '/SOFIE GSOC 26.pdf' | relative_url }})
-- [Work Log Entries]({{ '/logbook/' | relative_url }})
+- [Logbook]({{ '/logbook/' | relative_url }})
