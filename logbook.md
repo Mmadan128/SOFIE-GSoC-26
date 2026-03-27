@@ -1,5 +1,5 @@
 ---
-title: "Work Log"
+title: "Logbook"
 layout: single
 permalink: /logbook/
 author_profile: false

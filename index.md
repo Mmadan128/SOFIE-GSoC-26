@@ -3,16 +3,17 @@ layout: home
 author_profile: false
 ---
 
-## SOFIE GSoC 2026 Engineering Logbook
+## SOFIE Logbook
 
 Maintained by Mohit Madan.
 
-This site is a running work log for SOFIE GSoC 2026.
+This site is a running work log for GSoC 2026.
 
 ### Project Snapshot
 
 | Field | Value |
 | --- | --- |
+| Title | ML Inference on heterogeneous architectures using SOFIE |
 | Program | Google Summer of Code 2026 |
 | Organization | CERN-HSF |
 | Project | SOFIE Parallel Kernel Development |
