@@ -3,7 +3,7 @@ layout: home
 author_profile: false
 ---
 
-## SOFIE Logbook
+## Logbook
 
 Mohit Madan — GSoC 2026
 
