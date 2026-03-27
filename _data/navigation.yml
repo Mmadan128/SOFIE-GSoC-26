@@ -1,11 +1,15 @@
 main:
   - title: "Home"
     url: /
+  - title: "Logbook"
+    url: /logbook/
 
 sidebar:
   - title: "Logbook Resources"
     children:
+      - title: "Weekly Entries"
+        url: /logbook/
       - title: "Parallel Code Samples"
         url: https://github.com/mmadan128/SOFIE-Parallel-Kernels
       - title: "Proposal PDF"
-        url: /assets/SOFIE_GSOC_26.pdf
+        url: /SOFIE%20GSOC%2026.pdf
