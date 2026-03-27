@@ -21,14 +21,9 @@ defaults:
       type: posts
     values:
       layout: single
-      author_profile: true
+      author_profile: false
       read_time: true
       share: false
 
 author:
   name: "Mohit Madan"
-  bio: "GSoC 2026 Contributor for CERN-HSF. B.Tech CST @ MAIT."
-  links:
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/mmadan128"

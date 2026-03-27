@@ -1,15 +1,13 @@
 ---
 layout: home
-author_profile: true
-sidebar:
-  nav: "sidebar"
+author_profile: false
 ---
 
 ## SOFIE GSoC 2026 Engineering Logbook
 
-This site is maintained as an active engineering log with a public, structured record of ongoing work.
+Maintained by Mohit Madan.
 
-The logbook documents weekly engineering progress for the CERN-HSF Google Summer of Code 2026 project focused on accelerating SOFIE inference kernels on heterogeneous hardware.
+This site is a running work log for SOFIE GSoC 2026.
 
 ### Project Snapshot
 
@@ -18,7 +16,7 @@ The logbook documents weekly engineering progress for the CERN-HSF Google Summer
 | Program | Google Summer of Code 2026 |
 | Organization | CERN-HSF |
 | Project | SOFIE Parallel Kernel Development |
-| Focus Area | Portable GPU backend using alpaka |
+| Focus Area | Portable GPU backend with alpaka |
 | Contributor | Mohit Madan |
 
 ### Current Status
@@ -27,21 +25,12 @@ The logbook documents weekly engineering progress for the CERN-HSF Google Summer
 - Current objective: Resolve critical pipeline issues from the evaluation implementation.
 - Next milestone: Parallel reduction kernels for Group B operators.
 
-### Weekly Log Structure
+### How Updates Are Logged
 
-Each weekly update follows the same format to keep the history readable and auditable:
-
-- Planned work and scope boundary.
-- Implemented changes and rationale.
-- Validation artifacts, benchmarks, and logs.
-- Open risks, blockers, and next actions.
-
-### Working Principles
-
-- Maintain reproducible experiments and benchmark traces.
-- Keep implementation notes close to code and pull requests.
-- Prioritize correctness first, then throughput improvements.
-- Record tradeoffs for architecture-level decisions.
+- Planned work.
+- Completed work.
+- Evidence and results.
+- Risks and next actions.
 
 ### Resources
 

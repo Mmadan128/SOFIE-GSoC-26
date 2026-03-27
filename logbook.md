@@ -2,7 +2,7 @@
 title: "Weekly Engineering Logbook"
 layout: single
 permalink: /logbook/
-author_profile: true
+author_profile: false
 ---
 
 This page is the primary running log of implementation work, validation evidence, and weekly outcomes for the SOFIE GSoC 2026 project.
