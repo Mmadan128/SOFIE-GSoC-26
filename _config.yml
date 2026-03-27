@@ -1,11 +1,11 @@
 title: "SOFIE GSoC '26 Logbook"
-description: "ML Inference on heterogeneous architectures using SOFIE"
+description: "Engineering logbook for SOFIE parallel kernel development in GSoC 2026"
 url: "https://mmadan128.github.io"
 baseurl: "/SOFIE-GSoC-26"
 repository: "mmadan128/SOFIE-GSoC-26"
 
 remote_theme: "mmistakes/minimal-mistakes@4.24.0"
-minimal_mistakes_skin: "dark"
+minimal_mistakes_skin: "air"
 
 mathjax: true
 

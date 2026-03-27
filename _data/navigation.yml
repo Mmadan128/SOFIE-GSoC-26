@@ -3,7 +3,7 @@ main:
     url: /
 
 sidebar:
-  - title: "GSoC 2026 Resources"
+  - title: "Logbook Resources"
     children:
       - title: "Parallel Code Samples"
         url: https://github.com/mmadan128/SOFIE-Parallel-Kernels

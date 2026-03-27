@@ -1,0 +1,85 @@
+:root {
+  --logbook-accent: #0f4c81;
+  --logbook-ink: #1f2933;
+  --logbook-subtle: #5f6c7b;
+}
+
+body {
+  color: var(--logbook-ink);
+  background: linear-gradient(180deg, #f8fbfd 0%, #ffffff 260px);
+}
+
+.page__content {
+  font-size: 1.03rem;
+  line-height: 1.75;
+}
+
+.page__content h2 {
+  font-size: 1.9rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.9rem;
+  color: #0b3558;
+  letter-spacing: 0.01em;
+}
+
+.page__content h3 {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid #d9e3ec;
+  color: #173f67;
+}
+
+.page__content table {
+  margin-top: 0.8rem;
+  border: 1px solid #d9e3ec;
+}
+
+.page__content thead {
+  background: #eaf2f8;
+}
+
+.page__content tr:nth-child(even) {
+  background: #fbfdff;
+}
+
+.page__content ul {
+  margin-top: 0.4rem;
+}
+
+.page__content a {
+  color: var(--logbook-accent);
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.15em;
+}
+
+.page__content a:hover {
+  color: #083458;
+}
+
+.page__meta,
+.page__footer-follow,
+.page__footer-copyright {
+  color: var(--logbook-subtle);
+}
+
+.sidebar .nav__title {
+  background: var(--logbook-accent);
+}
+
+.sidebar .nav__items {
+  border: 1px solid #d9e3ec;
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+@media (max-width: 767px) {
+  .page__content {
+    font-size: 1rem;
+  }
+
+  .page__content h2 {
+    font-size: 1.55rem;
+  }
+}
