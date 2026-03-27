@@ -7,20 +7,16 @@ author_profile: false
 
 Maintained by Mohit Madan.
 
-This site is a running work log for GSoC 2026.
+**ML Inference on heterogeneous architectures using SOFIE**
 
-### Overview
-
-**ML Inference on heterogeneous architectures using SOFIE** — Google Summer of Code 2026, CERN-HSF.
-
-[View full proposal]({{ '/SOFIE GSOC 26.pdf' | relative_url }})
+[View proposal]({{ '/SOFIE GSOC 26.pdf' | relative_url }})
 
 ### Status
 
 - Phase: Community Bonding and scoping.
 - Goal: Parallel reduction kernels for Group B operators.
 
-### Logbook Format
+### How Entries Are Structured
 
 - Planned
 - Completed
