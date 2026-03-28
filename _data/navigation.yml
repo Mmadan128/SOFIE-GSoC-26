@@ -3,21 +3,23 @@ main:
     url: /
   - title: "Logbook"
     url: /logbook/
+  - title: "Operators"
+    url: /operators/
+  - title: "Proposal"
+    url: /SOFIE%20GSOC%2026.pdf
   - title: "GitHub"
     url: https://github.com/mmadan128
 
 docs:
-  - title: "Overview"
+  - title: "Navigation"
     children:
       - title: "Home"
         url: /
       - title: "Logbook"
         url: /logbook/
-  - title: "Project"
-    children:
+      - title: "Operators"
+        url: /operators/
       - title: "Proposal PDF"
         url: /SOFIE%20GSOC%2026.pdf
       - title: "GitHub"
         url: https://github.com/mmadan128
-      - title: "Operators"
-        url: /operators/
