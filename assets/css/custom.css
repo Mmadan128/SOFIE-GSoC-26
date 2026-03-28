@@ -19,7 +19,16 @@ body {
 }
 
 .initial-content {
-  max-width: 1200px;
+  max-width: 1520px;
+}
+
+.layout--single.wide .initial-content,
+.layout--single .initial-content {
+  width: min(96vw, 1520px);
+}
+
+.layout--single .page {
+  width: 100%;
 }
 
 .masthead {
