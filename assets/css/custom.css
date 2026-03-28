@@ -86,20 +86,13 @@ body {
 }
 
 .layout--single .sidebar {
-  position: sticky;
-  top: 4.2rem;
+  position: relative;
 }
 
-@media (min-width: 1100px) {
-  .layout--single .sidebar {
-    width: 16.5rem;
-    opacity: 0.98;
-  }
-
-  .layout--single .page {
-    width: calc(100% - 18.5rem);
-    padding-right: 0.8rem;
-  }
+.layout--single .sidebar .nav__list,
+.layout--single .sidebar .nav__items {
+  position: sticky;
+  top: 4.2rem;
 }
 
 .sidebar .nav__title {
@@ -114,6 +107,9 @@ body {
   border: 1px solid #2b3d52;
   border-radius: 4px;
   background: #101b27;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100%;
 }
 
 .sidebar .nav__items a {
@@ -259,7 +255,8 @@ html.theme-light {
     padding: 0;
   }
 
-  .layout--single .sidebar {
+  .layout--single .sidebar .nav__list,
+  .layout--single .sidebar .nav__items {
     position: static;
   }
 
