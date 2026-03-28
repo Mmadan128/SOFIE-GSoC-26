@@ -1,9 +1,23 @@
+main:
+  - title: "Home"
+    url: /
+  - title: "Logbook"
+    url: /logbook/
+  - title: "GitHub"
+    url: https://github.com/mmadan128
+
 docs:
-  - title: "SOFIE GSoC 2026"
+  - title: "Overview"
     children:
       - title: "Home"
-        url: /SOFIE-GSoC-26/
+        url: /
       - title: "Logbook"
-        url: /SOFIE-GSoC-26/logbook/
-      - title: "GPU Operators"
-        url: /SOFIE-GSoC-26/operators/
+        url: /logbook/
+  - title: "Project"
+    children:
+      - title: "Proposal PDF"
+        url: /SOFIE%20GSOC%2026.pdf
+      - title: "GitHub"
+        url: https://github.com/mmadan128
+      - title: "Operators"
+        url: /operators/

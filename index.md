@@ -18,7 +18,7 @@ Current stage: proposal and planning.
 ## Quick Links
 
 - [GitHub](https://github.com/mmadan128)
-- [Code Samples](https://github.com/mmadan128/SOFIE-Parallel-Kernels)
+- [Operators]({{ '/operators/' | relative_url }})
 - [Logbook]({{ '/logbook/' | relative_url }})
 
 ## Scope
