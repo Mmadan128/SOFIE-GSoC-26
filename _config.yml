@@ -21,7 +21,6 @@ defaults:
       type: posts
     values:
       layout: single
-      classes: wide
       author_profile: false
       sidebar:
         nav: "docs"
@@ -35,7 +34,6 @@ defaults:
       type: pages
     values:
       layout: single
-      classes: wide
       author_profile: false
       sidebar:
         nav: "docs"

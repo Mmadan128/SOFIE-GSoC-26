@@ -19,16 +19,11 @@ body {
 }
 
 .initial-content {
-  max-width: 1520px;
+  max-width: 1540px;
 }
 
-.layout--single.wide .initial-content,
-.layout--single .initial-content {
-  width: min(96vw, 1520px);
-}
-
-.layout--single .page {
-  width: 100%;
+#main {
+  max-width: 1540px;
 }
 
 .masthead {
@@ -67,10 +62,10 @@ body {
 .page__content {
   font-size: 1.02rem;
   line-height: 1.7;
-  border: 1px solid var(--logbook-border);
-  background: #0f1924;
-  border-radius: 6px;
-  padding: 1.25rem 1.35rem;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
 }
 
 .page__content h2 {
@@ -95,6 +90,18 @@ body {
   top: 4.2rem;
 }
 
+@media (min-width: 1100px) {
+  .layout--single .sidebar {
+    width: 16.5rem;
+    opacity: 0.98;
+  }
+
+  .layout--single .page {
+    width: calc(100% - 18.5rem);
+    padding-right: 0.8rem;
+  }
+}
+
 .sidebar .nav__title {
   background: #172331;
   color: var(--logbook-ink);
@@ -104,14 +111,16 @@ body {
 }
 
 .sidebar .nav__items {
-  border: 1px solid var(--logbook-border);
+  border: 1px solid #2b3d52;
   border-radius: 4px;
-  background: var(--logbook-panel);
+  background: #101b27;
 }
 
 .sidebar .nav__items a {
-  border-bottom: 1px solid #1b2a3b;
+  border-bottom: 1px solid #243548;
   font-size: 0.92rem;
+  padding-top: 0.48rem;
+  padding-bottom: 0.48rem;
 }
 
 .sidebar .nav__items a:hover {
@@ -119,10 +128,10 @@ body {
 }
 
 .toc {
-  border: 1px solid #39506a;
+  border: 1px solid #2d4156;
   border-radius: 4px;
-  background: #0e1824;
-  box-shadow: 0 0 0 1px rgba(116, 180, 255, 0.08) inset;
+  background: #0f1a26;
+  box-shadow: none;
   padding: 0.8rem 0.9rem;
 }
 
@@ -181,6 +190,7 @@ body {
   margin-top: 0.8rem;
   border: 1px solid var(--logbook-border);
   font-size: 0.93rem;
+  width: 100%;
 }
 
 .page__content thead {
@@ -200,6 +210,12 @@ body {
   border: 1px solid #24364d;
   border-radius: 4px;
   padding: 0.08rem 0.32rem;
+}
+
+.page__content pre {
+  border: 1px solid #27405a;
+  border-radius: 6px;
+  background: #0e1a27;
 }
 
 .page__content hr {
@@ -240,7 +256,7 @@ html.theme-light {
 
 @media (max-width: 767px) {
   .page__content {
-    padding: 0.95rem;
+    padding: 0;
   }
 
   .layout--single .sidebar {
