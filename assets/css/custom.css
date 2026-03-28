@@ -110,16 +110,17 @@ body {
 }
 
 .toc {
-  border: 1px solid var(--logbook-border);
+  border: 1px solid #39506a;
   border-radius: 4px;
-  background: var(--logbook-panel);
+  background: #0e1824;
+  box-shadow: 0 0 0 1px rgba(116, 180, 255, 0.08) inset;
   padding: 0.8rem 0.9rem;
 }
 
 .toc .nav__title {
   background: transparent;
-  border-bottom: 1px solid var(--logbook-border);
-  color: var(--logbook-h3);
+  border-bottom: 1px solid #2f4257;
+  color: #d9e7f7;
   font-size: 0.75rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -128,12 +129,19 @@ body {
 }
 
 .toc .toc__menu a {
-  color: var(--logbook-ink);
+  color: #bdd0e4;
   font-size: 0.9rem;
 }
 
 .toc .toc__menu a:hover {
   color: var(--logbook-accent);
+}
+
+.toc .toc__menu .active a,
+.toc .toc__menu a.active {
+  color: #ffffff;
+  background: #1b2c3f;
+  border-radius: 3px;
 }
 
 .page__content h2,

@@ -4,7 +4,7 @@ layout: single
 permalink: /logbook/
 author_profile: false
 sidebar:
-	nav: "docs"
+  nav: "docs"
 ---
 
 Updates are published as dated posts.
