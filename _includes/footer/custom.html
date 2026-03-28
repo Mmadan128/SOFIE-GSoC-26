@@ -1,0 +1,20 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var headings = document.querySelectorAll(".page__content h2, .page__content h3, .page__content h4");
+    headings.forEach(function (heading) {
+      if (!heading.id) {
+        return;
+      }
+      if (heading.querySelector(".header-anchor")) {
+        return;
+      }
+
+      var anchor = document.createElement("a");
+      anchor.className = "header-anchor";
+      anchor.href = "#" + heading.id;
+      anchor.setAttribute("aria-label", "Link to this section");
+      anchor.textContent = "#";
+      heading.appendChild(anchor);
+    });
+  });
+</script>

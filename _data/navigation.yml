@@ -1,17 +1,23 @@
 main:
   - title: "Home"
     url: /
-  - title: "SOFIE GSoC26 Logbook"
+  - title: "Logbook"
     url: /logbook/
   - title: "GitHub"
     url: https://github.com/mmadan128
 
-sidebar:
-  - title: "Resources"
+docs:
+  - title: "Overview"
     children:
+      - title: "Home"
+        url: /
       - title: "Logbook"
         url: /logbook/
-      - title: "Parallel Code Samples"
-        url: https://github.com/mmadan128/SOFIE-Parallel-Kernels
+  - title: "Project"
+    children:
       - title: "Proposal PDF"
         url: /SOFIE%20GSOC%2026.pdf
+      - title: "GitHub"
+        url: https://github.com/mmadan128
+      - title: "Parallel Code Samples"
+        url: https://github.com/mmadan128/SOFIE-Parallel-Kernels

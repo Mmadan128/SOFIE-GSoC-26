@@ -18,6 +18,10 @@ body {
   background: var(--logbook-bg-main);
 }
 
+.initial-content {
+  max-width: 1200px;
+}
+
 .masthead {
   background: #0c1219;
   border-bottom: 1px solid var(--logbook-border);
@@ -54,28 +58,112 @@ body {
 .page__content {
   font-size: 1.02rem;
   line-height: 1.7;
+  border: 1px solid var(--logbook-border);
+  background: #0f1924;
+  border-radius: 6px;
+  padding: 1.25rem 1.35rem;
 }
 
 .page__content h2 {
-  font-size: 1.82rem;
-  margin-top: 0.2rem;
-  margin-bottom: 0.75rem;
+  font-size: 1.52rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.65rem;
   color: var(--logbook-h2);
   letter-spacing: 0;
 }
 
 .page__content h3 {
-  font-size: 1.18rem;
-  margin-top: 1.75rem;
-  margin-bottom: 0.65rem;
-  padding-bottom: 0.3rem;
+  font-size: 1.08rem;
+  margin-top: 1.45rem;
+  margin-bottom: 0.55rem;
+  padding-bottom: 0.22rem;
   border-bottom: 1px solid var(--logbook-border);
   color: var(--logbook-h3);
+}
+
+.layout--single .sidebar {
+  position: sticky;
+  top: 4.2rem;
+}
+
+.sidebar .nav__title {
+  background: #172331;
+  color: var(--logbook-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.76rem;
+}
+
+.sidebar .nav__items {
+  border: 1px solid var(--logbook-border);
+  border-radius: 4px;
+  background: var(--logbook-panel);
+}
+
+.sidebar .nav__items a {
+  border-bottom: 1px solid #1b2a3b;
+  font-size: 0.92rem;
+}
+
+.sidebar .nav__items a:hover {
+  background: #182536;
+}
+
+.toc {
+  border: 1px solid var(--logbook-border);
+  border-radius: 4px;
+  background: var(--logbook-panel);
+  padding: 0.8rem 0.9rem;
+}
+
+.toc .nav__title {
+  background: transparent;
+  border-bottom: 1px solid var(--logbook-border);
+  color: var(--logbook-h3);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0 0 0.45rem 0;
+  margin-bottom: 0.4rem;
+}
+
+.toc .toc__menu a {
+  color: var(--logbook-ink);
+  font-size: 0.9rem;
+}
+
+.toc .toc__menu a:hover {
+  color: var(--logbook-accent);
+}
+
+.page__content h2,
+.page__content h3,
+.page__content h4 {
+  scroll-margin-top: 5rem;
+}
+
+.header-anchor {
+  visibility: hidden;
+  margin-left: 0.35rem;
+  color: var(--logbook-subtle);
+  text-decoration: none;
+  font-size: 0.88em;
+}
+
+.page__content h2:hover .header-anchor,
+.page__content h3:hover .header-anchor,
+.page__content h4:hover .header-anchor {
+  visibility: visible;
+}
+
+.header-anchor:hover {
+  color: var(--logbook-accent);
 }
 
 .page__content table {
   margin-top: 0.8rem;
   border: 1px solid var(--logbook-border);
+  font-size: 0.93rem;
 }
 
 .page__content thead {
@@ -88,6 +176,17 @@ body {
 
 .page__content ul {
   margin-top: 0.4rem;
+}
+
+.page__content code {
+  background: #162335;
+  border: 1px solid #24364d;
+  border-radius: 4px;
+  padding: 0.08rem 0.32rem;
+}
+
+.page__content hr {
+  border-color: var(--logbook-border);
 }
 
 .page__content a {
@@ -104,16 +203,6 @@ body {
 .page__footer-follow,
 .page__footer-copyright {
   color: var(--logbook-subtle);
-}
-
-.sidebar .nav__title {
-  background: var(--logbook-accent);
-}
-
-.sidebar .nav__items {
-  border: 1px solid var(--logbook-border);
-  border-radius: 4px;
-  background: var(--logbook-panel);
 }
 
 /* Optional light mode: add class "theme-light" to <html> to use these values. */
@@ -134,10 +223,22 @@ html.theme-light {
 
 @media (max-width: 767px) {
   .page__content {
+    padding: 0.95rem;
+  }
+
+  .layout--single .sidebar {
+    position: static;
+  }
+
+  .page__content {
     font-size: 1rem;
   }
 
   .page__content h2 {
-    font-size: 1.55rem;
+    font-size: 1.35rem;
+  }
+
+  .toc {
+    margin-top: 1rem;
   }
 }
