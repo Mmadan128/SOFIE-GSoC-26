@@ -1,1 +1,18 @@
-<link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
+<!-- Mermaid diagrams -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark",
+      themeVariables: {
+        background: "#1a1a2e",
+        primaryColor: "#1e3a4a",
+        primaryTextColor: "#7ec8e3",
+        lineColor: "#4ade80",
+        secondaryColor: "#2a1f3d",
+        tertiaryColor: "#1a1a2e"
+      }
+    });
+  });
+</script>
