@@ -18,20 +18,21 @@ For Mish, GroupNorm and SwiGLU I wrote pseudocode below showing how I am thinkin
 
 ## Mish
 
-Same idea as GELU. Each output only depends on its own input so every element can be computed independently. The one thing I had to think about is that `log(1 + exp(x))` overflows for large x in float32, so I handle it in three ranges.
+Each output only depends on its own input, no sharing between threads, so I just launch N workers and each one handles a single index independently. The only issue is `log(1 + e**x))` overflows for large x in float32, so I handle it in three ranges.
 
 **CPU:**
 ```text
 parallel for i in [0, N):
     x = X[i]
-    if   x >  20: s = x + log(1 + exp(-x))
-    elif x < -20: s = exp(x)
+    if   x >  20: s = x + log(1 + exp(-x))   // avoid overflow
+    elif x < -20: s = exp(x)                   // underflow region
     else:         s = log(1 + exp(x))
     Y[i] = x * tanh(s)
 ```
 
 **GPU kernel:**
 ```cpp
+
 struct MishKernel {
     template <typename TAcc>
     ALPAKA_FN_ACC void operator()(
@@ -57,9 +58,9 @@ struct MishKernel {
 
 ## GroupNormalization
 
-This one is trickier because you need the mean and variance of the whole group before you can write any output. So the work unit here is one `(batch, group)` pair, not one element. Each task handles its own slice from start to finish with no overlap.
+Unlike Mish/SwiGLU you need the mean and variance of the whole group before writing any output, so element level parallelism does not work here. I made the work unit one `(batch, group)` pair instead. Each task owns its slice fully so there is no overlap between workers.
 
-On CPU each task runs independently. On GPU one block maps to one `(n, g)` pair and does the reduction internally using warp shuffles and shared memory.
+CPU runs each `(n, g)` pair as an independent task. On GPU one block maps to one `(n, g)` pair and does the reduction internally using warp shuffles and shared memory.
 
 **CPU:**
 ```text
@@ -67,16 +68,28 @@ parallel for task in [0, N*G):
     n = task / G
     g = task % G
 
-    mean = sum of X over group slice / group_size
-    var  = sum of (X - mean)^2 over group slice / group_size
+    // pass 1: mean and variance
+    mean = 0
+    for c in [g*cPerG, (g+1)*cPerG), l in [0, L):
+        mean += X[n, c, l]
+    mean /= cPerG * L
+
+    var = 0
+    for c in [g*cPerG, (g+1)*cPerG), l in [0, L):
+        var += (X[n, c, l] - mean)^2
+    var /= cPerG * L
     invStd = 1 / sqrt(var + eps)
 
-    for each element in group slice:
+    // pass 2: normalize
+    for c in [g*cPerG, (g+1)*cPerG), l in [0, L):
         Y[n, c, l] = (X[n, c, l] - mean) * invStd * gamma[c] + beta[c]
 ```
 
 **GPU kernel:**
 ```cpp
+// one block handles one (n, g) pair
+// each thread accumulates locally, then warp shuffle to get block wide mean and var
+// reduction code not written yet
 struct GroupNormKernel {
     template <typename TAcc>
     ALPAKA_FN_ACC void operator()(
@@ -94,7 +107,6 @@ struct GroupNormKernel {
         int gSize  = cPerG * L;
         int gStart = g * cPerG;
 
-        // threads split the group slice between them and accumulate locally
         float count = 0, mean = 0, M2 = 0;
         for (int idx = tid; idx < gSize; idx += 256) {
             int c = gStart + idx / L;
@@ -105,8 +117,7 @@ struct GroupNormKernel {
             M2 += d * (x - mean);
         }
 
-        // warp shuffle + shared mem merge to get block wide mean and variance
-        // ... reduction step ...
+        // reduction will happen here
 
         for (int idx = tid; idx < gSize; idx += 256) {
             int c = gStart + idx / L;
@@ -122,19 +133,20 @@ struct GroupNormKernel {
 
 ## SwiGLU
 
-Input gets split into two halves, gate and up, and the op is elementwise across them. Pretty similar to Mish in structure. I keep it as a single fused kernel so the sigmoid of gate never gets written out to memory and just feeds straight into the multiply with up.
+Input is split into gate and up, the op is elementwise across both so each index is independent, same as Mish. I kept it as one fused kernel so the sigmoid of gate never gets written to memory and feeds straight into the multiply with up.
 
 **CPU:**
 ```text
-parallel for i in [0, N):
-    a = A[i]
-    b = B[i]
-    sig = 1 / (1 + exp(-b))
-    Y[i] = a * (b * sig)
+parallel for i in [0, M):
+    gate = A[i]
+    up   = B[i]
+    sig  = 1 / (1 + exp(-gate))
+    Y[i] = up * (gate * sig)   // swish(gate) * up
 ```
 
 **GPU kernel:**
 ```cpp
+// sigmoid fused inline without temp buffer
 struct SwiGLUKernel {
     template <typename TAcc>
     ALPAKA_FN_ACC void operator()(
