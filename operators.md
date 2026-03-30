@@ -58,9 +58,9 @@ struct MishKernel {
 
 ## GroupNormalization
 
-Unlike Mish/SwiGLU you need the mean and variance of the whole group before writing any output, so element level parallelism does not work here. I made the work unit one `(batch, group)` pair instead. Each task owns its slice fully so there is no overlap between workers.
+Unlike Mish/SwiGLU we need the mean and variance of the whole group before writing any output, so element level parallelism does not work here. I made the work unit one (batch, group) pair instead. Each task owns its slice fully so there is no overlap between workers.
 
-CPU runs each `(n, g)` pair as an independent task. On GPU one block maps to one `(n, g)` pair and does the reduction internally using warp shuffles and shared memory.
+CPU runs each (n, g) pair as an independent task. On GPU one block maps to one (n, g) pair and does the reduction internally using warp shuffles and shared memory.
 
 **CPU:**
 ```text
@@ -88,7 +88,7 @@ parallel for task in [0, N*G):
 **GPU kernel:**
 ```cpp
 // one block handles one (n, g) pair
-// each thread accumulates locally, then warp shuffle to get block wide mean and var
+
 // reduction code not written yet
 struct GroupNormKernel {
     template <typename TAcc>
