@@ -26,9 +26,8 @@ For Mish, GroupNorm and SwiGLU I wrote pseudocode below showing how I am thinkin
 
 Mish is elementwise, so I split by index and run all elements together.
 
-For normal values I use a fast middle formula with one exp call. For very large values I use simple edge cases so the math stays stable.
+For normal values, I use a compact Mish form that needs only one exp call. For very large positive values, I switch to a fast path to avoid float32 overflow. For very negative values, it naturally underflows to 0.0f, keeping the small negative-gradient tail without extra branching.
 
-When x is very positive, Mish is close to x. When x is very negative, Mish is close to 0.
 
 Stable form I use in the middle range:
 x * tanh(softplus(x)) = x * (e^(2x) + 2e^x) / (e^(2x) + 2e^x + 2)
@@ -37,15 +36,13 @@ x * tanh(softplus(x)) = x * (e^(2x) + 2e^x) / (e^(2x) + 2e^x + 2)
 ```text
 #pragma omp parallel for schedule(static)
 for (size_t i = 0; i < N; ++i) {
-    x = X[i]
-    if (x > 20) {
-        Y[i] = x
-    } else if (x < -10) {
-        Y[i] = 0
+    float x = X[i];
+    if (x > 20.0f) {
+        Y[i] = x;
     } else {
-        e = exp(x)
-        n = e * (e + 2)
-        Y[i] = x * n / (n + 2)
+        float e = exp(x);
+        float n = e * (e + 2.0f);
+        Y[i] = x * n / (n + 2.0f);
     }
 }
 ```
@@ -60,11 +57,14 @@ struct MishKernel {
     ) const {
         for (auto i : alpaka::uniformElements(acc, N)) {
             float x = input[i];
-            if (x >  20.0f) { output[i] = x;    continue; }
-            if (x < -10.0f) { output[i] = 0.0f; continue; }
-            float e = alpaka::math::expf(acc, x);
-            float n = e * (e + 2.0f);
-            output[i] = x * n / (n + 2.0f);
+            
+            if (x > 20.0f) { 
+                output[i] = x; 
+            } else {
+                float e = alpaka::math::exp(acc, x);
+                float n = e * (e + 2.0f);
+                output[i] = x * n / (n + 2.0f);
+            }
         }
     }
 };
@@ -74,36 +74,44 @@ struct MishKernel {
 
 ## GroupNormalization
 
-GroupNorm is not pure elementwise because each element depends on group mean and variance. I split work by (batch, group) pairs, then each pair computes stats and normalizes its own slice.
-
+On the CPU, a single thread can handle the sequential Welford algorithm. On the GPU, to ensure mathematical precision across parallel threads, I use a standard two pass block reduction .
 
 **CPU:**
 ```text
 #pragma omp parallel for schedule(static)
 for (size_t task = 0; task < N * G; ++task) {
-    n = task / G
-    g = task % G
-    cPerG = C / G
-    gStart = g * cPerG
+    int n = task / G;
+    int g = task % G;
+    int cPerG = C / G;
+    int gStart = g * cPerG;
 
-    mean = 0
-    M2 = 0
-    count = 0
-    for c in [gStart, gStart + cPerG), l in [0, L):
-        x = X[n, c, l]
-        d = x - mean
-        mean += d / ++count
-        M2 += d * (x - mean)
+    float mean = 0;
+    float M2 = 0;
+    int count = 0;
+    
+    for (int c = gStart; c < gStart + cPerG; ++c) {
+        for (int l = 0; l < L; ++l) {
+            float x = X[n*C*L + c*L + l];
+            float d = x - mean;
+            mean += d / ++count;
+            M2 += d * (x - mean);
+        }
+    }
 
-    invStd = 1 / sqrt(M2 / count + eps)
-    for c in [gStart, gStart + cPerG), l in [0, L):
-        Y[n, c, l] = (X[n, c, l] - mean) * invStd * gamma[c] + beta[c]
+    float invStd = 1.0f / sqrt(M2 / count + eps);
+    
+    for (int c = gStart; c < gStart + cPerG; ++c) {
+        for (int l = 0; l < L; ++l) {
+            int flat = n*C*L + c*L + l;
+            Y[flat] = (X[flat] - mean) * invStd * gamma[c] + beta[c];
+        }
+    }
 }
 ```
 
 **GPU kernel:**
 ```cpp
-// one block handles one (n, g) pair
+// One block handles one (n, g) pair
 struct GroupNormKernel {
     template <typename TAcc>
     ALPAKA_FN_ACC void operator()(
@@ -120,32 +128,41 @@ struct GroupNormKernel {
         int n = blockId / G,  g = blockId % G;
         int cPerG = C / G,  gSize = cPerG * L,  gStart = g * cPerG;
 
-        // each thread runs Welford on its chunk
-        float t_mean = 0, t_M2 = 0, t_count = 0;
+        //pass1: compute mean
+        float t_sum = 0;
         for (int idx = tid; idx < gSize; idx += nThreads) {
-            float x = input[n*C*L + (gStart + idx/L)*L + idx%L];
-            float d = x - t_mean;
-            t_mean += d / ++t_count;
-            t_M2   += d * (x - t_mean);
+            t_sum += input[n*C*L + (gStart + idx/L)*L + idx%L];
         }
-        smem[tid]            = t_mean * t_count;
-        smem[nThreads + tid] = t_M2;
+        smem[tid] = t_sum;
         alpaka::syncBlockThreads(acc);
 
-        // tree reduction
         for (int s = nThreads / 2; s > 0; s >>= 1) {
-            if (tid < s) {
-                smem[tid]            += smem[tid + s];
-                smem[nThreads + tid] += smem[nThreads + tid + s];
-            }
+            if (tid < s) smem[tid] += smem[tid + s];
             alpaka::syncBlockThreads(acc);
         }
+        float mu = smem[0] / gSize;
+        alpaka::syncBlockThreads(acc);
 
-        float mu     = smem[0] / gSize;
-        float invStd = alpaka::math::rsqrt(acc, smem[nThreads] / gSize + eps);
-
+        // pass2:compute variance 
+        float t_var = 0;
         for (int idx = tid; idx < gSize; idx += nThreads) {
-            int c = gStart + idx / L,  flat = n*C*L + c*L + idx%L;
+            float d = input[n*C*L + (gStart + idx/L)*L + idx%L] - mu;
+            t_var += d * d;
+        }
+        smem[tid] = t_var;
+        alpaka::syncBlockThreads(acc);
+
+        for (int s = nThreads / 2; s > 0; s >>= 1) {
+            if (tid < s) smem[tid] += smem[tid + s];
+            alpaka::syncBlockThreads(acc);
+        }
+        
+        float invStd = alpaka::math::rsqrt(acc, smem[0] / gSize + eps);
+
+        // normalize
+        for (int idx = tid; idx < gSize; idx += nThreads) {
+            int c = gStart + idx / L;
+            int flat = n*C*L + c*L + idx%L;
             output[flat] = gamma[c] * (input[flat] - mu) * invStd + beta[c];
         }
     }
