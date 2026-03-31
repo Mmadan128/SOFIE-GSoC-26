@@ -12,7 +12,7 @@ toc_label: "On this page"
 
 I have already implemented GELU and HardSwish in [this branch](https://github.com/Mmadan128/SOFIE/tree/gpu/alpaka) with parser, ROperator class, CPU emitter, and Alpaka GPU kernel.
 
-Here is a brief overview of what im thinking about the implemenetation of the following operators::
+Here is a brief overview of what i am thinking about the implementation of the following operators::
 1. GELU and HardSwish are elementwise, so one index per thread works directly.
 2. Mish is also elementwise, so I keep the same mapping.
 3. GroupNorm is different because outputs need group stats first, so I split work by batch and group.
@@ -26,7 +26,7 @@ For Mish, GroupNorm and SwiGLU I wrote pseudocode below showing how I am thinkin
 
 Mish is elementwise, so I split by index and run all elements together.
 
-For normal values, I use a compact Mish form that needs only one exp call. For very large positive values, I switch to a fast path to avoid float32 overflow. For very negative values, it naturally underflows to 0.0f, For very negative values, the output naturally goes to 0.0f, so no extra branching is needed.
+For normal values, I use a compact Mish form that needs only one exp call. For very large positive values, I switch to a fast path to avoid float32 overflow. For very negative values, it naturally underflows to 0.0f, the output naturally goes to 0.0f, so no extra branching is needed.
 
 
 Stable form I use in the middle range:
@@ -179,8 +179,8 @@ SwiGLU is elementwise across gate and up. Each output index is independent, so I
 ```text
 #pragma omp parallel for simd schedule(static)
 for (size_t i = 0; i < M; ++i) {
-    g = gate[i]
-    sig = 1.0 / (1.0 + exp(-g))
+    float g = gate[i]
+    float sig = 1.0 / (1.0 + exp(-g))
     Y[i] = up[i] * (g * sig)
 }
 ```
