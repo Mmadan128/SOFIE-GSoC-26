@@ -26,7 +26,7 @@ For Mish, GroupNorm and SwiGLU I wrote pseudocode below showing how I am thinkin
 
 Mish is elementwise, so I split by index and run all elements together.
 
-For normal values, I use a compact Mish form that needs only one exp call. For very large positive values, I switch to a fast path to avoid float32 overflow. For very negative values, it naturally underflows to 0.0f, keeping the small negative-gradient tail without extra branching.
+For normal values, I use a compact Mish form that needs only one exp call. For very large positive values, I switch to a fast path to avoid float32 overflow. For very negative values, it naturally underflows to 0.0f, For very negative values, the output naturally goes to 0.0f, so no extra branching is needed.
 
 
 Stable form I use in the middle range:
